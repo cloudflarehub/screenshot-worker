@@ -1,14 +1,15 @@
 {
   "name": "screenshot-worker",
   "scripts": {
-    "dev": "wrangler dev src/index.ts",
+    "dev": "wrangler dev --remote src/index.ts",
     "deploy": "wrangler deploy --minify src/index.ts"
   },
   "dependencies": {
+    "@cloudflare/puppeteer": "^0.0.11",
+    "@hono/zod-validator": "^0.2.2",
     "hono": "^4.4.12"
   },
   "devDependencies": {
-    "@cloudflare/puppeteer": "^0.0.11",
     "@cloudflare/workers-types": "^4.20240529.0",
     "wrangler": "^3.57.2"
   }
