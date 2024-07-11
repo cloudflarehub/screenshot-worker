@@ -1,6 +1,4 @@
-export const sleep = (ms: number) => {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+export const wait = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 export const generateRandomString = (length: number) => {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

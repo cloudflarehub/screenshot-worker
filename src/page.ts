@@ -1,25 +1,25 @@
 import puppeteer, {Page} from "@cloudflare/puppeteer";
+import {ScreenshotOptions} from "./schema";
+import {PuppeteerBlocker} from "@cliqz/adblocker-puppeteer";
 
-export const configPage = async (page: Page, device: string, width: string, height: string) => {
-  const widthConfig = parseInt(width, 10);
-  const heightConfig = parseInt(height, 10);
-  if (device === 'mobile') {
+export const configScreenshotPage = async (page: Page, options: ScreenshotOptions) => {
+  if (options.device === 'mobile') {
     await page.emulate(puppeteer.devices['iPhone 13']);
     await page.setViewport({
-      width: widthConfig || 585,
-      height: heightConfig || 1266,
+      width: options.width || 585,
+      height: options.height || 1266,
       deviceScaleFactor: 3,
     });
   } else {
     await page.setViewport({
-      width: widthConfig || 1920,
-      height: heightConfig || 1080,
+      width: options.width || 1920,
+      height: options.height || 1080,
       deviceScaleFactor: 2,
     });
   }
 }
 
-export const autoScroll = async (page: Page) => {
+export const scroll = async (page: Page) => {
   await page.evaluate(async () => {
     await new Promise((resolve) => {
       let totalHeight = 0;
@@ -37,5 +37,12 @@ export const autoScroll = async (page: Page) => {
         }
       }, 100);
     });
+  });
+}
+
+export const blockAds = async (page: Page)=> {
+  PuppeteerBlocker.fromPrebuiltAdsAndTracking(fetch).then((blocker) => {
+    // @ts-ignore
+    blocker.enableBlockingInPage(page);
   });
 }
