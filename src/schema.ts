@@ -5,9 +5,9 @@ export const ScreenshotOptionsSchema = z.object({
   device: z.string().optional().default('desktop'),
   width: z.number().int().min(1).optional(),
   height: z.number().int().min(1).optional(),
-  fullPage: z.boolean().optional().default(false),
+  fullPage: z.string().optional().default('false'),
   quality: z.number().optional().default(80),
-  isBlockAds: z.boolean().optional().default(false),
+  isBlockAds:  z.string().optional().default('false'),
 });
 
 export type ScreenshotOptions = z.infer<typeof ScreenshotOptionsSchema>;

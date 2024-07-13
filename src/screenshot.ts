@@ -11,7 +11,7 @@ export const screenshot = async (options: ScreenshotOptions, endpoint: BrowserWo
 
   await configScreenshotPage(page, options);
 
-  if (isBlockAds) {
+  if (isBlockAds === 'true') {
     await blockAds(page);
   }
 
@@ -23,7 +23,7 @@ export const screenshot = async (options: ScreenshotOptions, endpoint: BrowserWo
     await scroll(page);
   }
 
-  const screenshotBuffer = await page.screenshot({ fullPage: fullPage, type: 'jpeg', quality: quality });
+  const screenshotBuffer = await page.screenshot({ fullPage: fullPage === 'true', type: 'jpeg', quality: quality });
   await browser.close();
 
   const randomFileName = `screenshot_${generateRandomString(10)}.jpg`;
